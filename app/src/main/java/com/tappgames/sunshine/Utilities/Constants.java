@@ -33,5 +33,7 @@ public class Constants {
     public static final String cnt = "10";
     public static final String appid = "f978537a55e9535979fc541fefcce46d";
 
+    public static final int RESULT_CODE_SUCCESS = 1;
+
 
 }

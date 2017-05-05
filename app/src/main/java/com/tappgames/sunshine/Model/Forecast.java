@@ -1,12 +1,15 @@
 package com.tappgames.sunshine.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * Created by johndaratzikis on 09/04/2017.
  */
 
-public class Forecast {
+public class Forecast implements Parcelable{
 
     private int dt;
     private Temperature temp;
@@ -79,5 +82,15 @@ public class Forecast {
 
     public void setClouds(int clouds) {
         this.clouds = clouds;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

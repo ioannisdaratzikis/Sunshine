@@ -3,7 +3,10 @@ package com.tappgames.sunshine.Controller;
 import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Parcelable;
+import android.os.ResultReceiver;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -21,21 +24,18 @@ public class SunshineController extends IntentService {
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
-     * @param name Used to name the worker thread, important only for debugging.
      */
-    public SunshineController(String name) {
-        super(name);
+    public SunshineController() {
+        super("SunshineController");
     }
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
 
-    }
+        final ResultReceiver receiver = intent.getParcelableExtra("receiver");
+        final Bundle bundle = new Bundle();
 
-    public void fetchForecast(String lat, String lon, final ForecastComplection complection){
-
-        Call<GetForecastResponse> call = RestClient.call().getForecast(lat, lon, Constants.cnt, Constants.appid);
+        Call<GetForecastResponse> call = RestClient.call().getForecast("35", "139", Constants.cnt, Constants.appid);
         call.enqueue(new RestCallback<GetForecastResponse>() {
             @Override
             public void handleExeption(Throwable exception) {
@@ -45,7 +45,8 @@ public class SunshineController extends IntentService {
             @Override
             public void handleSuccess(GetForecastResponse response) {
                 ArrayList<Forecast> forecasts = response.getList();
-                complection.onResponse(forecasts);
+                bundle.putParcelableArrayList("forecasts", forecasts);
+                receiver.send(Constants.RESULT_CODE_SUCCESS, bundle);
             }
 
             @Override
@@ -54,10 +55,6 @@ public class SunshineController extends IntentService {
             }
         });
 
-    }
-
-    public interface ForecastComplection {
-        void onResponse(ArrayList<Forecast> complection);
     }
 
 }
