@@ -11,6 +11,7 @@ import com.tappgames.sunshine.Model.Forecast;
 import com.tappgames.sunshine.Rest.Pojos.GetForecastResponse;
 import com.tappgames.sunshine.Rest.RestCallback;
 import com.tappgames.sunshine.Rest.RestClient;
+import com.tappgames.sunshine.Utilities.Constants;
 
 import java.util.ArrayList;
 
@@ -32,9 +33,9 @@ public class SunshineController extends IntentService {
 
     }
 
-    public void fetchForecast(String lat, String lon, String days, String id, final ForecastComplection complection){
+    public void fetchForecast(String lat, String lon, final ForecastComplection complection){
 
-        Call<GetForecastResponse> call = RestClient.call().getForecast("35", "139","10","f978537a55e9535979fc541fefcce46d");
+        Call<GetForecastResponse> call = RestClient.call().getForecast(lat, lon, Constants.cnt, Constants.appid);
         call.enqueue(new RestCallback<GetForecastResponse>() {
             @Override
             public void handleExeption(Throwable exception) {
