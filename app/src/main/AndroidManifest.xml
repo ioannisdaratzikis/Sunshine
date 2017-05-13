@@ -24,6 +24,16 @@
             android:enabled="true"
             android:exported="true" />
 
+        <provider
+            android:name=".Database.CityContentProvider"
+            android:authorities="com.tappgames.sunshine.contentprovider_city"
+            android:multiprocess="true" />
+
+        <provider
+            android:name=".Database.ForecastContentProvider"
+            android:authorities="com.tappgames.sunshine.contentprovider_forecast"
+            android:multiprocess="true" />
+
     </application>
 
 </manifest>

@@ -33,4 +33,5 @@ dependencies {
     compile 'com.googlecode.android-query:android-query:0.25.9'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    androidTestCompile 'junit:junit:4.12'
 }
